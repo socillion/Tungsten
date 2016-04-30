@@ -15,8 +15,9 @@ class Tungsten(object):
         """Create a Tungsten object with a set appid"""
         self.appid = appid
 
-    def query(self, input = '', params = {}):
+    def query(self, input = '', params = None):
         """Query Wolfram Alpha and return a Result object"""
+        params = params or {}
         # Get and construct query parameters
         # Default parameters
         payload = {'input': input,
@@ -39,7 +40,7 @@ class Tungsten(object):
             if r.encoding != 'utf-8':
                 raise Exception('Invalid encoding: %s' % (r.encoding))
 
-        except Exception, e:
+        except Exception as e:
             return Result(error = e)
 
         return Result(xml = r.text)
