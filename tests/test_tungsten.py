@@ -101,7 +101,7 @@ class TungstenTestSuite(unittest.TestCase):
             for format in pod.format:
                 self.assertIn(format, ['minput', 'moutput'])   
 
-        self.assertEqual(result.pods[0].format['minput'], ['N[Pi, 71]'])
+        self.assertEqual(result.pods[0].format['minput'], ['N[Pi, 79]'])
         self.assertEqual(result.pods[1].format['minput'], ['Element[Pi, Algebraics]'])
 
 if __name__ == '__main__':
