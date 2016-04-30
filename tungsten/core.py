@@ -33,7 +33,7 @@ class Tungsten(object):
 
         # Catch any issues with connecting to Wolfram Alpha API
         try:
-            r = requests.get("http://api.wolframalpha.com/v2/query", params=payload)
+            r = requests.get("https://api.wolframalpha.com/v2/query", params=payload)
 
             # Raise Exception (to be returned as error)
             if r.status_code != 200:
