@@ -10,18 +10,19 @@ Provides user API and response objects
 import requests
 from xml.etree.ElementTree import fromstring, ElementTree
 
+
 class Tungsten(object):
     def __init__(self, appid):
         """Create a Tungsten object with a set appid"""
         self.appid = appid
 
-    def query(self, input = '', params = None):
+    def query(self, input='', params=None):
         """Query Wolfram Alpha and return a Result object"""
         params = params or {}
         # Get and construct query parameters
         # Default parameters
         payload = {'input': input,
-                    'appid': self.appid}
+                   'appid': self.appid}
         # Additional parameters (from params), formatted for url
         for key, value in params.items():
             # Check if value is list or tuple type (needs to be comma joined)
@@ -41,12 +42,13 @@ class Tungsten(object):
                 raise Exception('Invalid encoding: %s' % (r.encoding))
 
         except Exception as e:
-            return Result(error = e)
+            return Result(error=e)
 
-        return Result(xml = r.text)
+        return Result(xml=r.text)
+
 
 class Result(object):
-    def __init__(self, xml = '', error = None):
+    def __init__(self, xml='', error=None):
         # ElementTree.fromstring is fragile
         #   Requires byte code, so encode into utf-8
         #   Cannot handle None type, so check if xml exists
@@ -86,6 +88,7 @@ class Result(object):
 
         # Create a Pod object for every pod group in xml
         return [Pod(elem) for elem in self.xml_tree.findall('pod')]
+
 
 class Pod(object):
     def __init__(self, pod_root):
@@ -143,4 +146,3 @@ class Pod(object):
                     formats[elem.tag].append(content)
 
         return formats
-
